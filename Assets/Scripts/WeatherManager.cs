@@ -1,32 +1,65 @@
+using EditorAttributes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using EditorAttributes;
+using static System.Net.WebRequestMethods;
 
 public class WeatherManager : MonoBehaviour
 {
     //find weather by City
-    private const string florida = "http://api.openweathermap.org/data/2.5/weather?q=Orlando,us&mode=xml&appid=42f69487cb244eaf525fe22a087d99e5";
-
-    //find weather by ZIP code (doesn't work for all countries)
-    private const string germany = "https://api.openweathermap.org/data/2.5/weather?zip=52525,de&appid=42f69487cb244eaf525fe22a087d99e5";
+    private const string florida = "http://api.openweathermap.org/data/2.5/weather?q=Orlando,us&appid=42f69487cb244eaf525fe22a087d99e5";
     
-    //find weather by Longitute/Latitude
-    private const string madagascar = "https://api.openweathermap.org/data/2.5/weather?lat=-13.397826&lon=48.266638&appid=42f69487cb244eaf525fe22a087d99e5";
+    private const string germany = "http://api.openweathermap.org/data/2.5/weather?q=Heinsberg,de&appid=42f69487cb244eaf525fe22a087d99e5";
 
-    //find weather by city code (weathermap support)
-    private const string mongolia = "https://api.openweathermap.org/data/2.5/weather?id=2028461&appid=42f69487cb244eaf525fe22a087d99e5";
+    private const string madagascar = "http://api.openweathermap.org/data/2.5/weather?q=Hell-Ville,mg&appid=42f69487cb244eaf525fe22a087d99e5";
 
-    private const string australia = "http://api.openweathermap.org/data/2.5/weather?q=Yass,au&mode=xml&appid=42f69487cb244eaf525fe22a087d99e5";
+    private const string mongolia = "http://api.openweathermap.org/data/2.5/weather?q=Onon,mn&appid=42f69487cb244eaf525fe22a087d99e5";
+
+    private const string australia = "http://api.openweathermap.org/data/2.5/weather?q=Yass,au&appid=42f69487cb244eaf525fe22a087d99e5";
 
     [SerializeField] private List<Material> skyboxMats = new List<Material>();
+
+    [Header("Select City for Skybox")]
+    [SerializeField] private bool toggleGroup;
+
+    [Button(nameof(toggleGroup), ConditionResult.EnableDisable, true)]
+    public void Check_Florida() => CallWeather(florida);
+    [Button(nameof(toggleGroup), ConditionResult.EnableDisable, true)]
+    public void Check_Germany() => CallWeather(germany);
+    [Button(nameof(toggleGroup), ConditionResult.EnableDisable, true)]
+    public void Check_Madagascar() => CallWeather(madagascar);
+    [Button(nameof(toggleGroup), ConditionResult.EnableDisable, true)]
+    public void Check_Mongolia() => CallWeather(mongolia);
+    [Button(nameof(toggleGroup), ConditionResult.EnableDisable, true)]
+    public void Check_Australia() => CallWeather(australia);
+
+
+
+    //[Button("Find Weather in Florida", 30f)]
+    //public void CallWeather1() => CallWeather(florida);
+
+    //[Button("Find Weather in Germany", 30f)]
+    //public void CallWeather2() => CallWeather(germany);
+
+    //[Button("Find Weather in Madagascar", 30f)]
+    //public void CallWeather3() => CallWeather(madagascar);
+
+    //[Button("Find Weather in Mongolia", 30f)]
+    //public void CallWeather4() => CallWeather(mongolia);
+
+    //[Button("Find Weather in Australia", 30f)]
+    //public void CallWeather5() => CallWeather(australia);
+
+    
 
     private void Start()
     {
 
 
-        StartCoroutine(GetWeatherXML(OnXMLDataLoaded));
+        StartCoroutine(GetWeatherXML(florida, OnXMLDataLoaded));
     }
 
     private IEnumerator CallAPI(string url, Action<string> callback)
@@ -49,12 +82,15 @@ public class WeatherManager : MonoBehaviour
         }
     }
 
-    public IEnumerator GetWeatherXML(Action<string> callback)
+    public IEnumerator GetWeatherXML(string location, Action<string> callback)
     {
-        return CallAPI(australia, callback);
+        return CallAPI(location, callback);
     }
 
-    
+    public void CallWeather(string location)
+    {
+        StartCoroutine(GetWeatherXML(location, OnXMLDataLoaded));
+    }
 
     public void OnXMLDataLoaded(string data)
     {
