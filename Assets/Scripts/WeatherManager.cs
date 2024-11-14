@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 using UnityEngine.Networking;
 
 public class WeatherManager : MonoBehaviour
@@ -21,8 +20,12 @@ public class WeatherManager : MonoBehaviour
 
     private const string australia = "http://api.openweathermap.org/data/2.5/weather?q=Yass,au&mode=xml&appid=42f69487cb244eaf525fe22a087d99e5";
 
+    [SerializeField] private List<Material> skyboxMats = new List<Material>();
+
     private void Start()
     {
+
+
         StartCoroutine(GetWeatherXML(OnXMLDataLoaded));
     }
 
@@ -56,7 +59,9 @@ public class WeatherManager : MonoBehaviour
     public void OnXMLDataLoaded(string data)
     {
         Debug.Log(data);
+        
     }
 
+    
 
 }
