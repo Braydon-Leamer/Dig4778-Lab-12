@@ -22,20 +22,20 @@ public class WeatherManager : MonoBehaviour
 
     [SerializeField] private List<Material> skyboxMats = new List<Material>();
 
+    
     [Header("Select City for Skybox")]
-    [SerializeField] private bool toggleGroup;
-
-    [Button(nameof(toggleGroup), ConditionResult.EnableDisable, true)]
+    [SerializeField] private bool toggleButtons;
+    
+    [Button(nameof(toggleButtons), ConditionResult.EnableDisable, true)]
     public void Check_Florida() => CallWeather(florida);
-    [Button(nameof(toggleGroup), ConditionResult.EnableDisable, true)]
+    [Button(nameof(toggleButtons), ConditionResult.EnableDisable, true)]
     public void Check_Germany() => CallWeather(germany);
-    [Button(nameof(toggleGroup), ConditionResult.EnableDisable, true)]
+    [Button(nameof(toggleButtons), ConditionResult.EnableDisable, true)]
     public void Check_Madagascar() => CallWeather(madagascar);
-    [Button(nameof(toggleGroup), ConditionResult.EnableDisable, true)]
+    [Button(nameof(toggleButtons), ConditionResult.EnableDisable, true)]
     public void Check_Mongolia() => CallWeather(mongolia);
-    [Button(nameof(toggleGroup), ConditionResult.EnableDisable, true)]
+    [Button(nameof(toggleButtons), ConditionResult.EnableDisable, true)]
     public void Check_Australia() => CallWeather(australia);
-
 
 
     //[Button("Find Weather in Florida", 30f)]
@@ -57,9 +57,7 @@ public class WeatherManager : MonoBehaviour
 
     private void Start()
     {
-
-
-        StartCoroutine(GetWeatherXML(florida, OnXMLDataLoaded));
+        //StartCoroutine(GetWeatherXML(florida, OnXMLDataLoaded));
     }
 
     private IEnumerator CallAPI(string url, Action<string> callback)
