@@ -1,11 +1,10 @@
 using EditorAttributes;
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
-using EditorAttributes;
-using static System.Net.WebRequestMethods;
 
 public class WeatherManager : MonoBehaviour
 {
@@ -57,8 +56,6 @@ public class WeatherManager : MonoBehaviour
 
     private void Start()
     {
-
-
         StartCoroutine(GetWeatherXML(florida, OnXMLDataLoaded));
     }
 
@@ -96,7 +93,11 @@ public class WeatherManager : MonoBehaviour
     {
         Debug.Log(data);
         
+        WeatherLocation location = JsonConvert.DeserializeObject<WeatherLocation>(data);
+
+        print(DateTime.UtcNow.AddSeconds(location.Timezone));
     }
+
 
     
 
