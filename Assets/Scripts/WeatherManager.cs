@@ -19,8 +19,8 @@ public class WeatherManager : MonoBehaviour
 
     private const string australia = "http://api.openweathermap.org/data/2.5/weather?q=Yass,au&appid=42f69487cb244eaf525fe22a087d99e5";
 
-    [SerializeField] private List<Material> skyboxMats = new List<Material>();
-
+    [SerializeField] private List<WeatherSO> weatherTypes;
+    [SerializeField] private Light sun;
     
     [Header("Select City for Skybox")]
     [SerializeField] private bool toggleButtons;
@@ -94,11 +94,69 @@ public class WeatherManager : MonoBehaviour
         Debug.Log(data);
         
         WeatherLocation location = JsonConvert.DeserializeObject<WeatherLocation>(data);
-
-        print(DateTime.UtcNow.AddSeconds(location.Timezone));
+        DetermineWeather(location);
     }
 
+    private void DetermineWeather(WeatherLocation location)
+    {
+        // if (its's rainy)
+        // SetEnvironment(FindWeather(rainy))
 
-    
+        // if (its's snowy)
+        // SetEnvironment(FindWeather(snowy))
+
+        // set the skybox to time of day if a certain weather condition isn't specified
+        double localTimeMins = DateTime.UtcNow.AddSeconds(location.Timezone).TimeOfDay.TotalMinutes;
+
+        DateTime sunriseTime = DateTimeOffset.FromUnixTimeSeconds(location.Sys.Sunrise).DateTime;
+        DateTime sunsetTime = DateTimeOffset.FromUnixTimeSeconds(location.Sys.Sunset).DateTime;
+
+        double sunriseTimeMins = sunriseTime.AddSeconds(location.Timezone).TimeOfDay.TotalMinutes;
+        double sunsetTimeMins = sunsetTime.AddSeconds(location.Timezone).TimeOfDay.TotalMinutes;
+
+        if (localTimeMins <= sunriseTimeMins - 15)
+        {
+            // night
+            print($"it's before sunrise in {location.Name}");
+        }
+        else if (localTimeMins <= sunriseTimeMins + 15)
+        {
+            // sunrise
+            print($"it's sunrise in {location.Name}");
+        }
+        else if (localTimeMins <= sunsetTimeMins - 15)
+        {
+            // day
+            print($"it's daytime in {location.Name}");
+            SetEnvironment(FindWeather("daytime"));
+        }
+        else if (localTimeMins <= sunsetTimeMins + 15)
+        {
+            // sunset
+            print($"it's sunset in {location.Name}");
+        }
+        else
+        {
+            // night
+            print($"it's after sunset in {location.Name}");
+        }
+    }
+
+    private WeatherSO FindWeather(string weatherName)
+    {
+        foreach (WeatherSO weather in weatherTypes)
+        {
+            if (weather.Name == weatherName)
+                return weather;
+        }
+        return null;
+    }
+
+    private void SetEnvironment(WeatherSO weather)
+    {
+        RenderSettings.skybox = weather.skyboxMat;
+        sun.color = weather.sunColor;
+    }
+  
 
 }
