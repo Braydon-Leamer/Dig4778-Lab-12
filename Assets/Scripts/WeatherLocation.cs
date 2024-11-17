@@ -1,8 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Newtonsoft.Json;
-using UnityEngine;
+using System.Collections.Generic;
 
 public class WeatherLocation
 {
@@ -13,14 +10,23 @@ public class WeatherLocation
     public int Timezone { get; set; }
 
     [JsonProperty("sys")]
-    public WeatherSys Sys { get; set; }
+    public WeatherLocation_Sys Sys { get; set; }
+
+    [JsonProperty("weather")]
+    public List<WeatherLocation_Weather> Weather { get; set; }
 }
 
-public class WeatherSys
+public class WeatherLocation_Sys
 {
     [JsonProperty("sunrise")]
     public int Sunrise { get; set; }
 
     [JsonProperty("sunset")]
     public int Sunset { get; set; }
+}
+
+public class WeatherLocation_Weather
+{
+    [JsonProperty("main")]
+    public string Main { get; set; }
 }

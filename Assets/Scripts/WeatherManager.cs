@@ -99,11 +99,19 @@ public class WeatherManager : MonoBehaviour
 
     private void DetermineWeather(WeatherLocation location)
     {
-        // if (its's rainy)
-        // SetEnvironment(FindWeather(rainy))
+        if (location.Weather[0].Main.CompareTo("Rain") == 0)
+        {
+            print($"it's rainy in {location.Name}");
+            SetEnvironment(FindWeather("rainy"));
+            return;
+        }
 
-        // if (its's snowy)
-        // SetEnvironment(FindWeather(snowy))
+        if (location.Weather[0].Main.CompareTo("Snow") == 0)
+        {
+            print($"it's snowy in {location.Name}");
+            SetEnvironment(FindWeather("snowy"));
+            return;
+        }
 
         // set the skybox to time of day if a certain weather condition isn't specified
         double localTimeMins = DateTime.UtcNow.AddSeconds(location.Timezone).TimeOfDay.TotalMinutes;
@@ -118,11 +126,13 @@ public class WeatherManager : MonoBehaviour
         {
             // night
             print($"it's before sunrise in {location.Name}");
+            SetEnvironment(FindWeather("nighttime"));
         }
         else if (localTimeMins <= sunriseTimeMins + 15)
         {
             // sunrise
             print($"it's sunrise in {location.Name}");
+            SetEnvironment(FindWeather("sunrise"));
         }
         else if (localTimeMins <= sunsetTimeMins - 15)
         {
@@ -134,11 +144,13 @@ public class WeatherManager : MonoBehaviour
         {
             // sunset
             print($"it's sunset in {location.Name}");
+            SetEnvironment(FindWeather("sunset"));
         }
         else
         {
             // night
             print($"it's after sunset in {location.Name}");
+            SetEnvironment(FindWeather("nighttime"));
         }
     }
 
@@ -154,6 +166,12 @@ public class WeatherManager : MonoBehaviour
 
     private void SetEnvironment(WeatherSO weather)
     {
+        if (weather == null)
+        {
+            Debug.LogWarning("Weather not found in list of mats");
+            return;
+        }
+
         RenderSettings.skybox = weather.skyboxMat;
         sun.color = weather.sunColor;
     }

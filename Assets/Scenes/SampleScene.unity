@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 80fa4f34db87aad4d93c45188b19bfd6, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: e0a21ebc98cee4e46bbae873ec0be703, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -150,7 +150,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Color: {r: 1, g: 0.89630723, b: 0, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -247,6 +247,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weatherTypes:
   - {fileID: 11400000, guid: e46f59dacddfa6f469d53ef043710158, type: 2}
+  - {fileID: 11400000, guid: 8f5732762ab2a0b42b71bad809cbb81a, type: 2}
+  - {fileID: 11400000, guid: 8fe652933c9339c41a287054d084b377, type: 2}
+  - {fileID: 11400000, guid: cdd5e0861859a6c4e9f0d18b828f52bf, type: 2}
+  - {fileID: 11400000, guid: c3cc05132514ecc419f0b69dd525c92d, type: 2}
+  - {fileID: 11400000, guid: 236ee1c2f732d294a8d7cc50af319347, type: 2}
   sun: {fileID: 705507994}
   toggleButtons: 0
 --- !u!4 &796622509
