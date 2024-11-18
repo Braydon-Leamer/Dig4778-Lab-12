@@ -8,6 +8,7 @@ using UnityEngine.Networking;
 
 public class WeatherManager : MonoBehaviour
 {
+    [SerializeField] WebImageController webImageController;
     //find weather by City
     private const string florida = "http://api.openweathermap.org/data/2.5/weather?q=Orlando,us&appid=42f69487cb244eaf525fe22a087d99e5";
     
@@ -87,6 +88,7 @@ public class WeatherManager : MonoBehaviour
     public void CallWeather(string location)
     {
         StartCoroutine(GetWeatherXML(location, OnXMLDataLoaded));
+        webImageController.DownloadImage(nameof(location));
     }
 
     public void OnXMLDataLoaded(string data)
