@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 80fa4f34db87aad4d93c45188b19bfd6, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: c051fe5a20f72814f9643eb10ebbd2fc, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -229,7 +229,7 @@ GameObject:
   - component: {fileID: 364175549}
   - component: {fileID: 364175548}
   m_Layer: 0
-  m_Name: WebImageControllers
+  m_Name: WebImageController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -495,6 +495,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c3cc05132514ecc419f0b69dd525c92d, type: 2}
   - {fileID: 11400000, guid: 236ee1c2f732d294a8d7cc50af319347, type: 2}
   sun: {fileID: 705507994}
+  florida: {fileID: 11400000, guid: 6dce18afb9c53f243a8784dbf9302956, type: 2}
+  germany: {fileID: 11400000, guid: 9d275c7691e21a549a37fbacb2b72b87, type: 2}
+  madagascar: {fileID: 11400000, guid: 6993c35f0c3998d4db32f903301702ec, type: 2}
+  mongolia: {fileID: 11400000, guid: 7942f42a8ee4c6e4b8fabf6557390b76, type: 2}
+  australia: {fileID: 11400000, guid: 5e6df1a84b6831e4abe6eec5982dd9e2, type: 2}
   toggleButtons: 0
 --- !u!4 &796622509
 Transform:

@@ -8,20 +8,16 @@ using UnityEngine.Networking;
 
 public class WeatherManager : MonoBehaviour
 {
-    [SerializeField] WebImageController webImageController;
-    //find weather by City
-    private const string florida = "http://api.openweathermap.org/data/2.5/weather?q=Orlando,us&appid=42f69487cb244eaf525fe22a087d99e5";
-    
-    private const string germany = "http://api.openweathermap.org/data/2.5/weather?q=Heinsberg,de&appid=42f69487cb244eaf525fe22a087d99e5";
-
-    private const string madagascar = "http://api.openweathermap.org/data/2.5/weather?q=Hell-Ville,mg&appid=42f69487cb244eaf525fe22a087d99e5";
-
-    private const string mongolia = "http://api.openweathermap.org/data/2.5/weather?q=Onon,mn&appid=42f69487cb244eaf525fe22a087d99e5";
-
-    private const string australia = "http://api.openweathermap.org/data/2.5/weather?q=Yass,au&appid=42f69487cb244eaf525fe22a087d99e5";
-
+    [SerializeField] private WebImageController webImageController;
     [SerializeField] private List<WeatherSO> weatherTypes;
     [SerializeField] private Light sun;
+
+    [SerializeField] private LocationSO florida;
+    [SerializeField] private LocationSO germany;
+    [SerializeField] private LocationSO madagascar;
+    [SerializeField] private LocationSO mongolia;
+    [SerializeField] private LocationSO australia;
+
     
     [Header("Select City for Skybox")]
     [SerializeField] private bool toggleButtons;
@@ -40,19 +36,6 @@ public class WeatherManager : MonoBehaviour
 
     //[Button("Find Weather in Florida", 30f)]
     //public void CallWeather1() => CallWeather(florida);
-
-    //[Button("Find Weather in Germany", 30f)]
-    //public void CallWeather2() => CallWeather(germany);
-
-    //[Button("Find Weather in Madagascar", 30f)]
-    //public void CallWeather3() => CallWeather(madagascar);
-
-    //[Button("Find Weather in Mongolia", 30f)]
-    //public void CallWeather4() => CallWeather(mongolia);
-
-    //[Button("Find Weather in Australia", 30f)]
-    //public void CallWeather5() => CallWeather(australia);
-
     
 
     private void Start()
@@ -85,10 +68,10 @@ public class WeatherManager : MonoBehaviour
         return CallAPI(location, callback);
     }
 
-    public void CallWeather(string location)
+    public void CallWeather(LocationSO location)
     {
-        StartCoroutine(GetWeatherXML(location, OnXMLDataLoaded));
-        webImageController.DownloadImage(nameof(location));
+        StartCoroutine(GetWeatherXML(location.weatherDataURL, OnXMLDataLoaded));
+        webImageController.DownloadImage(location.imageURL);
     }
 
     public void OnXMLDataLoaded(string data)
